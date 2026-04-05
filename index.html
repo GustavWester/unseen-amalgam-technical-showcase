@@ -1,0 +1,1508 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Unseen: Amalgam — Tech Showcase</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #0c0c0e;
+  --bg-card: #141416;
+  --bg-card-border: #222225;
+  --red: #8b2020;
+  --blue: #3d4f6f;
+  --cyan: #5ecfcf;
+  --cream: #c8bfa6;
+  --white: #e0dbd0;
+  --muted: #6a6560;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg);
+  color: var(--cream);
+  font-family: 'DM Sans', sans-serif;
+  line-height: 1.7;
+  overflow-x: hidden;
+}
+
+/* NAV */
+nav {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 100;
+  padding: 0.8rem 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: rgba(12,12,14,0.9);
+  backdrop-filter: blur(8px);
+  border-bottom: 1px solid rgba(255,255,255,0.04);
+}
+.nav-logo {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+.nav-logo img { height: 28px; opacity: 0.9; }
+.nav-logo span {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--cream);
+  letter-spacing: 2px;
+}
+nav ul { list-style: none; display: flex; gap: 1.8rem; }
+nav a {
+  color: var(--muted);
+  text-decoration: none;
+  font-size: 0.8rem;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  font-weight: 500;
+  transition: color 0.3s;
+}
+nav a:hover { color: var(--white); }
+
+/* HERO */
+.hero {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 2rem 2rem 0;
+  position: relative;
+  overflow: hidden;
+}
+.hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at 50% 50%, rgba(139,32,32,0.1) 0%, transparent 65%);
+}
+.hero-content {
+  position: relative;
+  z-index: 3;
+  max-width: 600px;
+  padding-bottom: 180px;
+}
+.hero h1 {
+  font-size: clamp(2.5rem, 8vw, 5rem);
+  font-weight: 700;
+  color: var(--white);
+  letter-spacing: 4px;
+  line-height: 1.1;
+}
+.hero h1 span { color: var(--red); }
+.hero .sub {
+  font-size: 1.05rem;
+  color: var(--muted);
+  margin-top: 1.2rem;
+  font-weight: 300;
+}
+.hero .meta {
+  margin-top: 2rem;
+  display: flex;
+  gap: 2rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+.hero .meta-item {
+  font-size: 0.75rem;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--muted);
+  font-weight: 500;
+}
+.hero .meta-item strong {
+  display: block;
+  color: var(--cream);
+  font-size: 0.85rem;
+  font-weight: 600;
+  margin-top: 0.2rem;
+}
+
+/* HERO CHARACTERS */
+.hero-chars {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: flex-end;
+  gap: 6px;
+  z-index: 2;
+  white-space: nowrap;
+}
+.hero-char {
+  object-fit: contain;
+  display: block;
+  pointer-events: none;
+  user-select: none;
+  flex-shrink: 0;
+}
+.hero-char.h-side  { height: 148px; filter: brightness(0.15) saturate(0.25); }
+.hero-char.h-mid   { height: 185px; filter: brightness(0.2) saturate(0.35); }
+.hero-char.h-near  { height: 228px; filter: brightness(0.28) saturate(0.5); }
+.hero-char.h-core  { height: 312px; filter: brightness(0.45) saturate(0.8); position: relative; z-index: 3; }
+.hero-chars-fade {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 260px;
+  background: linear-gradient(to top, var(--bg) 15%, transparent 100%);
+  z-index: 4;
+  pointer-events: none;
+}
+
+/* LOGO BAND */
+.logo-band {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 2.5rem 2rem 0;
+}
+.logo-band img {
+  height: 100px;
+  opacity: 0.7;
+}
+
+/* SECTIONS */
+.section {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 5rem 2rem;
+}
+.section-label {
+  font-size: 0.7rem;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--muted);
+  font-weight: 500;
+  margin-bottom: 0.6rem;
+}
+.section h2 {
+  font-size: clamp(1.6rem, 4vw, 2.2rem);
+  font-weight: 700;
+  color: var(--white);
+  letter-spacing: 0.5px;
+  margin-bottom: 1.2rem;
+}
+.section-text {
+  max-width: 640px;
+  font-weight: 300;
+  font-size: 0.95rem;
+  line-height: 1.8;
+  color: var(--cream);
+  opacity: 0.85;
+}
+.divider {
+  width: 40px;
+  height: 1px;
+  background: var(--red);
+  margin: 3rem 0;
+  opacity: 0.4;
+}
+
+/* CREDITS */
+.credits-line {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  margin-top: 1.8rem;
+  font-size: 0.8rem;
+  color: var(--muted);
+  letter-spacing: 0.5px;
+  flex-wrap: wrap;
+}
+.credits-line strong {
+  color: var(--cream);
+  font-weight: 600;
+}
+.credits-sep { opacity: 0.3; }
+
+/* ABOUT LAYOUT */
+.about-layout {
+  display: grid;
+  grid-template-columns: 1fr 300px;
+  gap: 3rem;
+  align-items: start;
+}
+.about-screenshot img {
+  width: 100%;
+  border-radius: 10px;
+  border: 1px solid var(--bg-card-border);
+  box-shadow: 0 8px 30px rgba(0,0,0,0.5);
+}
+
+/* GALLERY */
+.gallery-scroll {
+  display: flex;
+  gap: 1.2rem;
+  overflow-x: auto;
+  padding: 1.5rem 0 2rem;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+}
+.gallery-scroll::-webkit-scrollbar { display: none; }
+.gallery-item {
+  flex: 0 0 auto;
+  width: 240px;
+  scroll-snap-align: center;
+}
+.gallery-item img {
+  width: 100%;
+  border-radius: 12px;
+  border: 1px solid var(--bg-card-border);
+  box-shadow: 0 8px 30px rgba(0,0,0,0.4);
+  transition: transform 0.3s;
+}
+.gallery-item:hover img { transform: translateY(-4px); }
+.gallery-item .cap {
+  text-align: center;
+  margin-top: 0.6rem;
+  font-size: 0.75rem;
+  color: var(--muted);
+  letter-spacing: 0.5px;
+}
+
+/* CARDS */
+.card-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+  margin-top: 2rem;
+}
+.card {
+  background: var(--bg-card);
+  border: 1px solid var(--bg-card-border);
+  border-radius: 6px;
+  padding: 2rem;
+}
+.card h3 {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--white);
+  letter-spacing: 0.5px;
+  margin-bottom: 0.8rem;
+}
+.card p {
+  font-weight: 300;
+  font-size: 0.9rem;
+  line-height: 1.8;
+  color: var(--cream);
+  opacity: 0.8;
+}
+
+/* CHARACTERS */
+.char-row {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 1.5rem;
+  margin-top: 2rem;
+}
+.char-card {
+  background: var(--bg-card);
+  border: 1px solid var(--bg-card-border);
+  border-radius: 6px;
+  padding: 1.5rem;
+  text-align: center;
+}
+.char-card img {
+  width: 140px;
+  height: 140px;
+  object-fit: contain;
+  margin-bottom: 1rem;
+}
+.char-card h4 {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--white);
+  letter-spacing: 0.5px;
+}
+.role-team {
+  font-size: 0.7rem;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  font-weight: 500;
+}
+.role-team.survivors { color: var(--cyan); }
+.role-team.amalgam { color: var(--red); }
+.char-card .role-team { margin: 0.3rem 0 0.8rem; }
+.char-card p {
+  font-size: 0.85rem;
+  font-weight: 300;
+  line-height: 1.7;
+  color: var(--cream);
+  opacity: 0.75;
+}
+
+/* TOWER */
+.tower-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3rem;
+  align-items: start;
+  margin-top: 2rem;
+}
+.tower-screenshots {
+  display: flex;
+  gap: 1rem;
+}
+.tower-screenshots img {
+  width: 200px;
+  border-radius: 12px;
+  border: 1px solid var(--bg-card-border);
+  box-shadow: 0 8px 30px rgba(0,0,0,0.4);
+}
+.component-tag {
+  display: inline-block;
+  background: rgba(139,32,32,0.12);
+  border: 1px solid rgba(139,32,32,0.2);
+  border-radius: 3px;
+  padding: 0.2rem 0.6rem;
+  margin: 0.2rem;
+  font-size: 0.8rem;
+  color: var(--cream);
+  font-weight: 500;
+}
+
+/* ARCHITECTURE */
+.arch-diagram {
+  background: var(--bg-card);
+  border: 1px solid var(--bg-card-border);
+  border-radius: 6px;
+  padding: 2.5rem;
+  margin-top: 2rem;
+}
+.arch-flow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+  margin: 2rem 0;
+}
+.arch-box {
+  background: rgba(61,79,111,0.15);
+  border: 1px solid rgba(61,79,111,0.3);
+  border-radius: 4px;
+  padding: 1rem 1.5rem;
+  text-align: center;
+  min-width: 140px;
+}
+.arch-box.host {
+  background: rgba(139,32,32,0.12);
+  border-color: rgba(139,32,32,0.3);
+}
+.arch-box .box-label {
+  font-size: 0.65rem;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 0.3rem;
+}
+.arch-box .box-name {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--white);
+}
+.arch-box .box-sub {
+  font-size: 0.72rem;
+  color: var(--muted);
+  margin-top: 0.2rem;
+}
+.arch-arrow { color: var(--muted); font-size: 1.5rem; }
+.arch-text { margin-top: 2rem; }
+.arch-text p {
+  font-weight: 300;
+  font-size: 0.9rem;
+  line-height: 1.85;
+  color: var(--cream);
+  opacity: 0.85;
+  margin-bottom: 1rem;
+}
+.arch-text h4 {
+  font-weight: 600;
+  color: var(--white);
+  font-size: 0.95rem;
+  margin: 1.5rem 0 0.5rem;
+  letter-spacing: 0.5px;
+}
+
+/* CODE BLOCKS */
+.code-section {
+  margin-top: 3rem;
+  border-top: 1px solid var(--bg-card-border);
+  padding-top: 2rem;
+}
+.code-section-label {
+  font-size: 0.7rem;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--muted);
+  font-weight: 500;
+  margin-bottom: 1.5rem;
+}
+.code-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.2rem;
+}
+.code-snippet {
+  background: #08080a;
+  border: 1px solid var(--bg-card-border);
+  border-radius: 6px;
+  overflow: hidden;
+}
+.code-snippet-header {
+  padding: 0.7rem 1.2rem;
+  border-bottom: 1px solid var(--bg-card-border);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: rgba(255,255,255,0.02);
+}
+.code-snippet-title {
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--white);
+}
+.code-snippet-file {
+  font-size: 0.68rem;
+  color: var(--muted);
+  font-family: 'SF Mono', 'Consolas', monospace;
+}
+.code-snippet pre {
+  padding: 1.2rem;
+  overflow-x: auto;
+  margin: 0;
+  font-family: 'SF Mono', 'Cascadia Code', 'Consolas', 'Courier New', monospace;
+  font-size: 0.73rem;
+  line-height: 1.75;
+  color: #b0a898;
+  tab-size: 4;
+  scrollbar-width: thin;
+  scrollbar-color: var(--bg-card-border) #08080a;
+}
+.code-snippet pre::-webkit-scrollbar { height: 4px; }
+.code-snippet pre::-webkit-scrollbar-track { background: #08080a; }
+.code-snippet pre::-webkit-scrollbar-thumb { background: var(--bg-card-border); border-radius: 2px; }
+
+/* ENCOUNTER SCREENSHOTS */
+.encounter-visuals {
+  display: flex;
+  gap: 1.5rem;
+  margin-top: 2.5rem;
+  flex-wrap: wrap;
+}
+.enc-shot {
+  flex: 1;
+  min-width: 200px;
+  max-width: 340px;
+}
+.enc-shot img {
+  width: 100%;
+  border-radius: 10px;
+  border: 1px solid var(--bg-card-border);
+  box-shadow: 0 8px 30px rgba(0,0,0,0.4);
+  transition: transform 0.3s;
+}
+.enc-shot:hover img { transform: translateY(-4px); }
+.enc-shot .cap {
+  margin-top: 0.6rem;
+  font-size: 0.75rem;
+  color: var(--muted);
+  letter-spacing: 0.5px;
+}
+
+/* GAME FLOW STEPS */
+.flow-steps {
+  margin-top: 3rem;
+}
+.flow-step {
+  display: grid;
+  grid-template-columns: 1fr 260px;
+  gap: 2.5rem;
+  align-items: start;
+  padding: 2.5rem 0;
+  border-top: 1px solid var(--bg-card-border);
+}
+.flow-step:first-child {
+  border-top: none;
+  padding-top: 0;
+}
+.flow-step-num {
+  font-size: 0.65rem;
+  letter-spacing: 3px;
+  color: var(--muted);
+  font-weight: 500;
+  margin-bottom: 0.5rem;
+  font-family: 'SF Mono', 'Consolas', monospace;
+}
+.flow-step h4 {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--white);
+  margin-bottom: 0.7rem;
+  letter-spacing: 0.3px;
+}
+.flow-step p {
+  font-size: 0.9rem;
+  font-weight: 300;
+  line-height: 1.8;
+  color: var(--cream);
+  opacity: 0.85;
+}
+.flow-img img {
+  width: 100%;
+  border-radius: 10px;
+  border: 1px solid var(--bg-card-border);
+  box-shadow: 0 8px 24px rgba(0,0,0,0.4);
+  display: block;
+}
+.flow-img .cap {
+  margin-top: 0.5rem;
+  font-size: 0.72rem;
+  color: var(--muted);
+  letter-spacing: 0.5px;
+}
+.flow-img-pair {
+  display: flex;
+  gap: 0.6rem;
+}
+.flow-img-pair img {
+  width: 50%;
+  border-radius: 10px;
+  border: 1px solid var(--bg-card-border);
+  box-shadow: 0 8px 24px rgba(0,0,0,0.4);
+  display: block;
+}
+
+/* NARRATIVE LAYOUT */
+.narrative-layout {
+  display: grid;
+  grid-template-columns: 1fr 260px;
+  gap: 3rem;
+  align-items: start;
+  margin-top: 2rem;
+}
+.narrative-layout .narrative-screenshot img {
+  width: 100%;
+  border-radius: 10px;
+  border: 1px solid var(--bg-card-border);
+  box-shadow: 0 8px 30px rgba(0,0,0,0.5);
+}
+
+/* SPECS */
+.spec-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 1rem;
+  margin-top: 2rem;
+}
+.spec {
+  background: var(--bg-card);
+  border: 1px solid var(--bg-card-border);
+  border-radius: 4px;
+  padding: 1.2rem;
+}
+.spec .spec-label {
+  font-size: 0.65rem;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 0.3rem;
+}
+.spec .spec-val {
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: var(--white);
+}
+
+/* NARRATIVE QUOTE */
+.narrative-quote {
+  border-left: 2px solid var(--red);
+  padding: 1.5rem 2rem;
+  background: rgba(20,20,22,0.5);
+}
+.narrative-quote p {
+  font-size: 0.95rem;
+  line-height: 1.9;
+  color: var(--cream);
+  opacity: 0.8;
+}
+.narrative-quote .question {
+  color: var(--cyan);
+  margin-top: 1rem;
+  font-style: italic;
+  opacity: 1;
+}
+
+/* FOOTER */
+footer {
+  text-align: center;
+  padding: 3rem 2rem 2rem;
+  border-top: 1px solid rgba(255,255,255,0.04);
+  margin-top: 3rem;
+}
+footer img { height: 24px; opacity: 0.6; margin-bottom: 0.8rem; }
+footer p {
+  font-size: 0.75rem;
+  color: var(--muted);
+  letter-spacing: 1px;
+}
+
+/* FADE */
+.fade-in {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+.fade-in.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* RESPONSIVE */
+@media (max-width: 800px) {
+  nav ul { display: none; }
+  .card-grid { grid-template-columns: 1fr; }
+  .char-row { grid-template-columns: 1fr 1fr; max-width: 500px; margin-left: auto; margin-right: auto; }
+  .tower-grid { grid-template-columns: 1fr; }
+  .tower-screenshots { justify-content: center; }
+  .arch-flow { flex-direction: column; }
+  .arch-arrow { transform: rotate(90deg); }
+  .about-layout { grid-template-columns: 1fr; }
+  .narrative-layout { grid-template-columns: 1fr; }
+  .code-grid { grid-template-columns: 1fr; }
+  .flow-step { grid-template-columns: 1fr; }
+  .hero-char.h-side { display: none; }
+}
+@media (max-width: 500px) {
+  .gallery-item { width: 200px; }
+  .tower-screenshots { flex-direction: column; align-items: center; }
+  .hero .meta { flex-direction: column; gap: 1rem; }
+  .hero-char.h-mid { display: none; }
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-logo">
+    <img src="images/logo.png" alt="Gulle Games">
+    <span>Unseen: Amalgam</span>
+  </div>
+  <ul>
+    <li><a href="#about">About</a></li>
+    <li><a href="#architecture">Architecture</a></li>
+    <li><a href="#encounters">Encounters</a></li>
+    <li><a href="#gameplay">Gameplay</a></li>
+    <li><a href="#characters">Roles</a></li>
+    <li><a href="#tech">Tech</a></li>
+  </ul>
+</nav>
+
+<section class="hero">
+  <div class="hero-content">
+    <h1>Unseen: <span>Amalgam</span></h1>
+    <p class="sub">Technical showcase</p>
+    <div class="meta">
+      <div class="meta-item">Platform<strong>Mobile &amp; WebGL</strong></div>
+      <div class="meta-item">Players<strong>5 – 12</strong></div>
+      <div class="meta-item">Engine<strong>Unity</strong></div>
+      <div class="meta-item">Status<strong>Functional prototype</strong></div>
+    </div>
+  </div>
+  <div class="hero-chars">
+    <img class="hero-char h-side" src="images/char-doomsayer.png" alt="">
+    <img class="hero-char h-mid" src="images/char-priest.png" alt="">
+    <img class="hero-char h-near" src="images/char-soldier.png" alt="">
+    <img class="hero-char h-core" src="images/char-amalgam.png" alt="">
+    <img class="hero-char h-near" src="images/char-biologist.png" alt="">
+    <img class="hero-char h-mid" src="images/char-doctor.png" alt="">
+    <img class="hero-char h-side" src="images/char-hunter.png" alt="">
+  </div>
+  <div class="hero-chars-fade"></div>
+</section>
+
+<div class="logo-band fade-in">
+  <img src="images/logo.png" alt="Gulle Games">
+</div>
+
+<div class="section" id="about">
+  <div class="fade-in">
+    <div class="section-label">Overview</div>
+    <h2>What is Unseen: Amalgam</h2>
+    <div class="about-layout">
+      <div>
+        <p class="section-text">
+          The purpose of this page is to show the design of my game and some of the technical design decisions that have been made and implemented, particularly my networking communication design and my adaptive encounter design. 
+        </p>
+        <p class="section-text" style="margin-top: 1.2rem;">
+          This is a technical showcase of Unseen: Amalgam, a side project I've been building alongside my software engineering studies for the last 1.5 years. It's an online social deduction game inspired by Werewolf, Among Us, and Town of Salem, made in Unity. Currently a fully functional prototype with working multiplayer, a native mobile app for hosting and joining sessions, and a WebGL build for clients.
+        </p>
+        <p class="section-text" style="margin-top: 1.2rem;">
+          It's trying to combine what makes games like Werewolf good: you can see each other's faces as you argue and accuse. Digital makes other things possible too, like hidden information, complex role abilities, and atmosphere.
+        </p>
+        <div class="credits-line">
+          <span>Made by <strong>Gustav Wester</strong></span>
+          <span class="credits-sep">·</span>
+          <span>Original artwork by <strong>Benjamin Tromborg</strong></span>
+        </div>
+      </div>
+      <div class="about-screenshot">
+        <img src="images/client-host.png" alt="Game lobby">
+      </div>
+    </div>
+  </div>
+
+
+  <div class="divider"></div>
+  <div class="card-grid fade-in">
+    <div class="card">
+      <h3>Day Phase</h3>
+      <p>During the day, players debate who to exile and deal with random events: strangers showing up at the door, reports of deaths from the night before, or the group running low on food.</p>
+    </div>
+    <div class="card">
+      <h3>Night Phase</h3>
+      <p>At night, players go out to scavenge for food and supplies. Each journey is private on their own device. They make choices only they see. The Amalgam use this time to kill, sabotage, or keep their cover.</p>
+    </div>
+    <div class="card">
+      <h3>Deception</h3>
+      <p>The core of the game is reading people. When someone comes back from scavenging claiming they found nothing, are they telling the truth? When someone pushes hard to exile a specific player, what's their motive?</p>
+    </div>
+    <div class="card">
+      <h3>Win Conditions</h3>
+      <p>Survivors win by fully repairing a broken radio tower and calling for rescue, or by identifying and exiling every Amalgam. The Amalgam win by killing enough survivors to outnumber them, or by stopping the rescue.</p>
+    </div>
+  </div>
+</div>
+
+
+
+<div class="section" id="architecture">
+  <div class="fade-in">
+    <div class="section-label">Technical</div>
+    <h2>Multiplayer Architecture</h2>
+    <p class="section-text">
+      The game uses a client-host model built on Unity Netcode for GameObjects. One device runs the session as host and holds all the game logic; they're also playing like everyone else. Everyone else connects as clients, either through the native app or a WebGL build in the browser.
+    </p>
+  </div>
+
+  <div class="arch-diagram fade-in">
+    <div class="arch-flow">
+      <div class="arch-box">
+        <div class="box-label">Client</div>
+        <div class="box-name">Player B</div>
+        <div class="box-sub">Mobile or WebGL</div>
+      </div>
+      <div class="arch-arrow">→</div>
+      <div class="arch-box host">
+        <div class="box-label">Host</div>
+        <div class="box-name">Player A</div>
+        <div class="box-sub">Mobile</div>
+      </div>
+      <div class="arch-arrow">←</div>
+      <div class="arch-box">
+        <div class="box-label">Client</div>
+        <div class="box-name">Player C</div>
+        <div class="box-sub">Mobile or WebGL</div>
+      </div>
+    </div>
+
+    <div class="arch-text">
+      <h4>Snapshot-Based State Sync</h4>
+      <p>
+        The host keeps the full game state in a single object: resource levels, active Amalgam count, which NPCs in town are secretly Amalgam, noise levels, the current day, who is alive, and what events have already happened.
+      </p>
+      <p>
+        At the start of each phase, the host packages this into a <code style="font-family:monospace;font-size:0.85em;color:var(--cyan)">NightSnapshot</code> and sends a filtered version to each client. A survivor sees different data than the Amalgam. That's how the game keeps information hidden while running everything from one shared state.
+      </p>
+
+      <h4>Scenario Distribution</h4>
+      <p>
+        During scavenging, the host uses the snapshot to pick scenarios for each player. Scenarios are chosen randomly but weighted by the current state. High noise means more dangerous encounters; low food means more trade opportunities. Every player gets different scenarios, so no two nights play out the same.
+      </p>
+
+      <h4>Choice Resolution</h4>
+      <p>
+        When a player makes a choice, the client accumulates the results locally throughout the scavenge, then sends a single outcome packet to the host at the end. The host's GameManager processes all incoming changes, resolves role abilities, and updates the master state.
+      </p>
+      <p>
+        Once all clients have submitted, the host advances the phase and sends out new snapshots. Clients don't know about each other's actions until the host surfaces them, like announcing that someone died during the night.
+      </p>
+
+      
+    </div>
+
+    <div class="code-section">
+      <div class="code-section-label">From the codebase</div>
+      <div class="code-grid">
+
+        <div class="code-snippet">
+          <div class="code-snippet-header">
+            <span class="code-snippet-title">The State Package</span>
+            <span class="code-snippet-file">NightSnapshot.cs</span>
+          </div>
+          <pre>public struct NightSnapshot : INetworkSerializable
+{
+    // Global
+    public WorldFlags worldFlags;
+    // radio tower status, which NPCs are Amalgam
+
+    public BaseState baseState;
+    // morale, noise, fortification
+
+    public InventoryState inventory;
+    // shared resources
+
+    public RoundGains roundGains;
+    // what was found this round
+
+    // Per-player: role, hp, items, scavenging
+    public List&lt;PlayerInfo&gt; players;
+}</pre>
+        </div>
+
+        <div class="code-snippet">
+          <div class="code-snippet-header">
+            <span class="code-snippet-title">Client Result Accumulation</span>
+            <span class="code-snippet-file">ClientGameManager.cs</span>
+          </div>
+          <pre>// During scavenging, outcomes build up locally
+// on the client as each choice is made:
+public void AddPendingFood(int amount)
+    => PendingScavengeResults.foodChange += amount;
+
+public void AddPendingHpChange(int amount)
+    => PendingScavengeResults.hpChange += amount;
+
+public void MarkRifleFound()
+    => PendingScavengeResults.foundRifle = true;
+
+public void MarkGeneratorFixed()
+    => PendingScavengeResults.fixedGenerator = true;
+
+public void MarkAntennaFixed()
+    => PendingScavengeResults.fixedAntenna = true;
+
+// At the end, one RPC sends everything at once:
+NetworkGameManager.Instance
+    .ReportScavengeOutcomeServerRpc(
+        myUgsId,
+        PendingScavengeResults
+    );</pre>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<!--
+  GAMEPLAY FLOW — Full-Page Horizontal Snap Scroll
+  Each step = full viewport width. 9:16 phone images shown in full beside text.
+  Supports 1 or 2 images per step. Click arrows or dots to navigate.
+-->
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Outfit:wght@300;400;600;700&display=swap');
+
+/* ── Section Container ── */
+.gameplay-scroll-section {
+  position: relative;
+  background: #0a0a0c;
+  color: #e8e6e1;
+  font-family: 'Outfit', sans-serif;
+  overflow: hidden;
+  padding: 3rem 0 2rem;
+}
+
+/* ── Header ── */
+.gf-header {
+  padding: 0 4vw 1.5rem;
+}
+
+.gf-label {
+  font-family: 'Space Mono', monospace;
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.25em;
+  color: #4a4a4a;
+  margin-bottom: 0.4rem;
+}
+
+.gf-header h2 {
+  font-family: 'Outfit', sans-serif;
+  font-size: clamp(1.8rem, 4vw, 3rem);
+  font-weight: 700;
+  color: #fff;
+  margin: 0 0 0.3rem;
+}
+
+.gf-header p {
+  font-size: 0.95rem;
+  color: #666;
+  margin: 0;
+}
+
+/* ── Snap Track ── */
+.gf-track {
+  display: flex;
+  overflow-x: auto;
+  overflow-y: hidden;
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+  scrollbar-width: none;
+  -webkit-overflow-scrolling: touch;
+}
+
+.gf-track::-webkit-scrollbar {
+  display: none;
+}
+
+/* ── Single Slide ── */
+.gf-slide {
+  flex: 0 0 100%;
+  scroll-snap-align: start;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(2rem, 4vw, 5rem);
+  padding: 2rem 6vw;
+  box-sizing: border-box;
+  min-height: 520px;
+}
+
+/* ── Image Container ── */
+.gf-images {
+  display: flex;
+  gap: 1rem;
+  flex-shrink: 0;
+  align-items: center;
+}
+
+.gf-phone {
+  position: relative;
+  width: clamp(160px, 18vw, 240px);
+  aspect-ratio: 7 / 16;
+  border-radius: 16px;
+  overflow: hidden;
+  background: #111;
+  border: 2px solid #1e1e22;
+  box-shadow:
+    0 4px 24px rgba(0,0,0,0.5),
+    0 0 0 1px rgba(255,255,255,0.03);
+  transition: border-color 0.3s ease;
+}
+
+.gf-slide:hover .gf-phone {
+  border-color: #2a2a2e;
+}
+
+.gf-phone img,
+.gf-phone video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* Subtle reflection/gloss on phone */
+.gf-phone::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    165deg,
+    rgba(255,255,255,0.04) 0%,
+    transparent 40%
+  );
+  pointer-events: none;
+}
+
+/* ── Text Content ── */
+.gf-text {
+  max-width: 380px;
+  flex-shrink: 1;
+}
+
+.gf-step-num {
+  font-family: 'Space Mono', monospace;
+  font-size: 0.65rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: #444;
+  margin-bottom: 0.6rem;
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.gf-step-num::after {
+  content: '';
+  display: block;
+  width: 28px;
+  height: 1px;
+  background: #333;
+}
+
+.gf-text h4 {
+  font-family: 'Outfit', sans-serif;
+  font-size: clamp(1.1rem, 2vw, 1.4rem);
+  font-weight: 700;
+  color: #ece9e3;
+  margin: 0 0 0.7rem;
+  line-height: 1.25;
+}
+
+.gf-text p {
+  font-size: 0.88rem;
+  line-height: 1.6;
+  color: #777;
+  margin: 0;
+}
+
+/* ── Navigation Controls ── */
+.gf-nav {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1.2rem;
+  padding: 1.2rem 0 0.5rem;
+}
+
+.gf-arrow {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: 1px solid #2a2a2e;
+  background: transparent;
+  color: #666;
+  font-size: 1rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.25s ease;
+  font-family: 'Space Mono', monospace;
+}
+
+.gf-arrow:hover {
+  border-color: #555;
+  color: #ccc;
+  background: rgba(255,255,255,0.03);
+}
+
+.gf-arrow:disabled {
+  opacity: 0.2;
+  cursor: default;
+}
+
+/* Dots */
+.gf-dots {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+}
+
+.gf-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #222;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.gf-dot.active {
+  background: #888;
+  transform: scale(1.4);
+}
+
+.gf-dot:hover:not(.active) {
+  background: #444;
+}
+
+/* Step counter */
+.gf-counter {
+  font-family: 'Space Mono', monospace;
+  font-size: 0.65rem;
+  color: #444;
+  letter-spacing: 0.1em;
+  text-align: center;
+  padding-bottom: 1rem;
+}
+
+/* ── Responsive ── */
+@media (max-width: 768px) {
+  .gf-slide {
+    flex-direction: column;
+    gap: 1.5rem;
+    padding: 1.5rem 5vw;
+    min-height: auto;
+  }
+
+  .gf-phone {
+    width: clamp(140px, 35vw, 180px);
+  }
+
+  .gf-text {
+    max-width: 100%;
+    text-align: center;
+  }
+
+  .gf-step-num {
+    justify-content: center;
+  }
+}
+</style>
+
+<div class="gameplay-scroll-section" id="gameplay">
+
+  <div class="gf-header">
+    <div class="gf-label">Walkthrough</div>
+    <h2>Gameplay Flow</h2>
+    <p>One full game loop, from setup to the next morning.</p>
+  </div>
+
+  <div class="gf-track" id="gfTrack">
+
+    <!-- 01 -->
+    <div class="gf-slide">
+      <div class="gf-images">
+        <div class="gf-phone"><video src="images/webm/LobbyBeingFilled.webm" autoplay loop muted playsinline></video></div>
+      </div>
+      <div class="gf-text">
+        <div class="gf-step-num">Step 01</div>
+        <h4>Host Creates the Session</h4>
+        <p>The host opens the native app and starts a new game. Everyone else joins from the WebGL build in their browser by entering a room code. No installation needed for clients.</p>
+      </div>
+    </div>
+
+    <!-- 02 -->
+    <div class="gf-slide">
+      <div class="gf-images">
+        <div class="gf-phone"><video src="images/webm/ClientSceneStatus.webm" autoplay loop muted playsinline></video></div>
+      </div>
+      <div class="gf-text">
+        <div class="gf-step-num">Step 02</div>
+        <h4>Clients Sent to "My Screen"</h4>
+        <p>Players see a personal screen with info about their role and status — HP, items, and any active effects.</p>
+      </div>
+    </div>
+
+    <!-- 03 -->
+    <div class="gf-slide">
+      <div class="gf-images">
+        <div class="gf-phone"><video src="images/webm/ClientRoleReveal.webm" autoplay loop muted playsinline></video></div>
+      </div>
+      <div class="gf-text">
+        <div class="gf-step-num">Step 03</div>
+        <h4>Roles Are Dealt</h4>
+        <p>Each player checks their phone privately to see their assigned role.</p>
+      </div>
+    </div>
+
+    <!-- 04 -->
+    <div class="gf-slide">
+      <div class="gf-images">
+        <div class="gf-phone"><video src="images/webm/StartupMainGameScene.webm" autoplay loop muted playsinline></video></div>
+      </div>
+      <div class="gf-text">
+        <div class="gf-step-num">Step 04</div>
+        <h4>Day Phase Begins</h4>
+        <p>Host sees the main day screen with the bunker state: who is alive, what resources are left, and what happened the previous night.</p>
+      </div>
+    </div>
+
+    <!-- 05 -->
+    <div class="gf-slide">
+      <div class="gf-images">
+        <div class="gf-phone"><video src="images/webm/DayEncounterExample.webm" autoplay loop muted playsinline></video></div>
+      </div>
+      <div class="gf-text">
+        <div class="gf-step-num">Step 05</div>
+        <h4>Day Encounter</h4>
+        <p>A random encounter tests the group's ability to cooperate. They read it aloud, vote on a response, and the outcome updates the world state — karma, sanity, inventory, or amalgam awareness.</p>
+      </div>
+    </div>
+
+    <!-- 06 -->
+    <div class="gf-slide">
+      <div class="gf-images">
+        <div class="gf-phone"><video src="images/webm/NightEncounterExample.webm" autoplay loop muted playsinline></video></div>
+      </div>
+      <div class="gf-text">
+        <div class="gf-step-num">Step 06</div>
+        <h4>Night Falls: Scavenging</h4>
+        <p>Each player is sent to their own private scavenge scene. One draws the supermarket, choosing what to search for food and supplies. Every scavenger sees something different.</p>
+      </div>
+    </div>
+
+    <!-- 07 -->
+    <div class="gf-slide">
+      <div class="gf-images">
+        <div class="gf-phone"><video src="images/webm/BiologistUsesAbility.webm" autoplay loop muted playsinline></video></div>
+      </div>
+      <div class="gf-text">
+        <div class="gf-step-num">Step 07</div>
+        <h4>Role Abilities</h4>
+        <p>The Biologist scans another player — the result shows privately: human or Amalgam. Only they know. They'll decide whether to reveal this during the day discussion.</p>
+      </div>
+    </div>
+
+    <!-- 08 — Two images side by side -->
+    <div class="gf-slide">
+      <div class="gf-images">
+        <div class="gf-phone"><img src="images/amalgam-night-menu.png" alt="Amalgam action menu"></div>
+        <div class="gf-phone"><img src="images/amalgam-kill.png" alt="Choosing a victim"></div>
+      </div>
+      <div class="gf-text">
+        <div class="gf-step-num">Step 08</div>
+        <h4>The Amalgam Strikes</h4>
+        <p>The Amalgam opens their private action menu and picks a target. The victim is flagged on the host's GameManager and added to the pending kills list.</p>
+      </div>
+    </div>
+
+    <!-- 09 -->
+    <div class="gf-slide">
+      <div class="gf-images">
+        <div class="gf-phone"><video src="images/webm/DayAnnouncementSomeONeHasBeenKilled.webm" autoplay loop muted playsinline></video></div>
+      </div>
+      <div class="gf-text">
+        <div class="gf-step-num">Step 09</div>
+        <h4>Morning: Someone Is Dead</h4>
+        <p>Night ends. An alert goes out: one player was found dead. The group has one day of debate before the next night falls. The loop continues until one side wins.</p>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Navigation -->
+  <div class="gf-nav">
+    <button class="gf-arrow" id="gfPrev" disabled>&#8592;</button>
+    <div class="gf-dots" id="gfDots">
+      <button class="gf-dot active" data-idx="0"></button>
+      <button class="gf-dot" data-idx="1"></button>
+      <button class="gf-dot" data-idx="2"></button>
+      <button class="gf-dot" data-idx="3"></button>
+      <button class="gf-dot" data-idx="4"></button>
+      <button class="gf-dot" data-idx="5"></button>
+      <button class="gf-dot" data-idx="6"></button>
+      <button class="gf-dot" data-idx="7"></button>
+      <button class="gf-dot" data-idx="8"></button>
+    </div>
+    <button class="gf-arrow" id="gfNext">&#8594;</button>
+  </div>
+  <div class="gf-counter" id="gfCounter">01 / 09</div>
+
+</div>
+
+<script>
+(function () {
+  const track = document.getElementById('gfTrack');
+  const slides = track.querySelectorAll('.gf-slide');
+  const dots = document.querySelectorAll('#gfDots .gf-dot');
+  const prevBtn = document.getElementById('gfPrev');
+  const nextBtn = document.getElementById('gfNext');
+  const counter = document.getElementById('gfCounter');
+  const total = slides.length;
+  let current = 0;
+
+  function goTo(idx) {
+    idx = Math.max(0, Math.min(idx, total - 1));
+    current = idx;
+    slides[idx].scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'start' });
+    updateUI();
+  }
+
+  function updateUI() {
+    dots.forEach((d, i) => d.classList.toggle('active', i === current));
+    prevBtn.disabled = current === 0;
+    nextBtn.disabled = current === total - 1;
+    counter.textContent = String(current + 1).padStart(2, '0') + ' / ' + String(total).padStart(2, '0');
+  }
+
+  prevBtn.addEventListener('click', () => goTo(current - 1));
+  nextBtn.addEventListener('click', () => goTo(current + 1));
+  dots.forEach(d => d.addEventListener('click', () => goTo(+d.dataset.idx)));
+
+  // Sync dots on manual scroll / swipe
+  let scrollTimeout;
+  track.addEventListener('scroll', () => {
+    clearTimeout(scrollTimeout);
+    scrollTimeout = setTimeout(() => {
+      const slideWidth = slides[0].offsetWidth;
+      const idx = Math.round(track.scrollLeft / slideWidth);
+      if (idx !== current && idx >= 0 && idx < total) {
+        current = idx;
+        updateUI();
+      }
+    }, 80);
+  });
+
+  // Keyboard nav
+  document.addEventListener('keydown', (e) => {
+    const rect = track.getBoundingClientRect();
+    if (rect.top > window.innerHeight || rect.bottom < 0) return;
+    if (e.key === 'ArrowRight') goTo(current + 1);
+    if (e.key === 'ArrowLeft') goTo(current - 1);
+  });
+})();
+</script>
+
+  </div>
+
+  <div class="divider"></div>
+
+  <div class="fade-in">
+    <div class="section-label">Screenshots</div>
+  </div>
+  <div class="gallery-scroll fade-in">
+    <div class="gallery-item">
+      <img src="images/lobby.png" alt="Lobby">
+      <div class="cap">Lobby</div>
+    </div>
+    <div class="gallery-item">
+      <img src="images/role-reveal.png" alt="Role reveal">
+      <div class="cap">Private role reveal</div>
+    </div>
+    <div class="gallery-item">
+      <img src="images/client-host.png" alt="Day screen">
+      <div class="cap">Day screen</div>
+    </div>
+    <div class="gallery-item">
+      <img src="images/day-encounter1.png" alt="Day encounter">
+      <div class="cap">Narrative encounter</div>
+    </div>
+    <div class="gallery-item">
+      <img src="images/day-encounter2.png" alt="Trade event">
+      <div class="cap">Strangers at the door</div>
+    </div>
+    <div class="gallery-item">
+      <img src="images/screen-before-night.png" alt="Night intro">
+      <div class="cap">Night begins</div>
+    </div>
+    <div class="gallery-item">
+      <img src="images/night-scavenge.png" alt="Scavenging">
+      <div class="cap">Scavenging</div>
+    </div>
+    <div class="gallery-item">
+      <img src="images/night-choose-scavenger.png" alt="Choose scavenger">
+      <div class="cap">Biologist scans a player</div>
+    </div>
+    <div class="gallery-item">
+      <img src="images/amalgam-night-menu.png" alt="Amalgam menu">
+      <div class="cap">Amalgam action menu</div>
+    </div>
+    <div class="gallery-item">
+      <img src="images/amalgam-kill.png" alt="Kill menu">
+      <div class="cap">Choose a victim</div>
+    </div>
+    <div class="gallery-item">
+      <img src="images/amalgam-sabotage.png" alt="Sabotage">
+      <div class="cap">Sabotage the radio tower</div>
+    </div>
+    <div class="gallery-item">
+      <img src="images/day-alert-killed.png" alt="Death alert">
+      <div class="cap">Someone died tonight</div>
+    </div>
+    <div class="gallery-item">
+      <img src="images/alert-killed-day.png" alt="Day death alert">
+      <div class="cap">Killed during the day</div>
+    </div>
+    <div class="gallery-item">
+      <img src="images/day-nofood.png" alt="No food">
+      <div class="cap">No resources recovered</div>
+    </div>
+    <div class="gallery-item">
+      <img src="images/night-radiotower.png" alt="Radio tower">
+      <div class="cap">Repairing the radio tower</div>
+    </div>
+  </div>
+</div>
+
+<div class="section" id="characters">
+  <div class="fade-in">
+    <div class="section-label">Roles</div>
+    <h2>Player Roles</h2>
+    <p class="section-text">
+      Each player gets a role at the start. Roles decide which team you're on, Survivor or Amalgam, and give you a unique ability to use during scavenging.
+    </p>
+  </div>
+  <div class="char-row fade-in">
+    <div class="char-card">
+      <img src="images/char-hunter.png" alt="The Survivor">
+      <h4>The Survivor</h4>
+      <div class="role-team survivors">Survivors</div>
+      <p>No special abilities. Just trying to make it out alive.</p>
+    </div>
+    <div class="char-card">
+      <img src="images/char-doctor.png" alt="The Doctor">
+      <h4>The Doctor</h4>
+      <div class="role-team survivors">Survivors</div>
+      <p>Can heal injured players during the night phase.</p>
+    </div>
+    <div class="char-card">
+      <img src="images/char-soldier.png" alt="The Soldier">
+      <h4>The Soldier</h4>
+      <div class="role-team survivors">Survivors</div>
+      <p>Can kill other players during scavenging, but dies too if the target turns out to be a survivor. A powerful ability that comes with real risk.</p>
+    </div>
+    <div class="char-card">
+      <img src="images/char-biologist.png" alt="The Biologist">
+      <h4>The Biologist</h4>
+      <div class="role-team survivors">Survivors</div>
+      <p>Can scan other scavenging players to determine if they're human or Amalgam.</p>
+    </div>
+    <div class="char-card">
+      <img src="images/char-priest.png" alt="The Martyr">
+      <h4>The Martyr</h4>
+      <div class="role-team survivors">Survivors</div>
+      <p>Can choose to pray at night. If attacked while praying, the attacker dies through divine retribution.</p>
+    </div>
+    <div class="char-card">
+      <img src="images/char-doomsayer.png" alt="The Doomsayer">
+      <h4>The Doomsayer</h4>
+      <div class="role-team amalgam">Amalgam</div>
+      <p>Believes the Amalgam are the new world order and wants to help them win. Plays on the Amalgam team, but the Biologist's scan reads them as human.</p>
+    </div>
+    <div class="char-card">
+      <img src="images/char-amalgam.png" alt="The Amalgam">
+      <h4>The Amalgam</h4>
+      <div class="role-team amalgam">Amalgam</div>
+      <p>An alien creature in a human suit. Must kill every survivor without being found out.</p>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+<footer>
+  <img src="images/logo.png" alt="Gulle Games">
+  <p>Unseen: Amalgam &nbsp;·&nbsp; Made by Gustav Wester &nbsp;·&nbsp; Original artwork by Benjamin Tromborg</p>
+</footer>
+
+<script>
+const obs = new IntersectionObserver((entries) => {
+  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+}, { threshold: 0.1 });
+document.querySelectorAll('.fade-in').forEach(el => obs.observe(el));
+</script>
+
+</body>
+</html>
