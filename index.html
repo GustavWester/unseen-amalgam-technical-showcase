@@ -146,10 +146,10 @@ nav a:hover { color: var(--white); }
   user-select: none;
   flex-shrink: 0;
 }
-.hero-char.h-side  { height: 148px; filter: brightness(0.15) saturate(0.25); }
-.hero-char.h-mid   { height: 185px; filter: brightness(0.2) saturate(0.35); }
-.hero-char.h-near  { height: 228px; filter: brightness(0.28) saturate(0.5); }
-.hero-char.h-core  { height: 312px; filter: brightness(0.45) saturate(0.8); position: relative; z-index: 3; }
+.hero-char.h-side  { height: 148px; filter: brightness(0.3) saturate(0.5); }
+.hero-char.h-mid   { height: 185px; filter: brightness(0.4) saturate(0.65); }
+.hero-char.h-near  { height: 228px; filter: brightness(0.52) saturate(0.8); }
+.hero-char.h-core  { height: 312px; filter: brightness(0.7) saturate(1.0); position: relative; z-index: 3; }
 .hero-chars-fade {
   position: absolute;
   bottom: 0;
@@ -704,10 +704,10 @@ footer p {
   <ul>
     <li><a href="#about">About</a></li>
     <li><a href="#architecture">Architecture</a></li>
-    <li><a href="#encounters">Encounters</a></li>
+  
     <li><a href="#gameplay">Gameplay</a></li>
     <li><a href="#characters">Roles</a></li>
-    <li><a href="#tech">Tech</a></li>
+   
   </ul>
 </nav>
 
@@ -784,6 +784,11 @@ footer p {
       <h3>Win Conditions</h3>
       <p>Survivors win by fully repairing a broken radio tower and calling for rescue, or by identifying and exiling every Amalgam. The Amalgam win by killing enough survivors to outnumber them, or by stopping the rescue.</p>
     </div>
+    <div class="card" style="grid-column: 1 / -1;">
+      <h3>Word of Mouth</h3>
+      <p>Everything players learn at night, they must share out loud. There is no shared log, no kill feed, no notification that a location has already been stripped bare. If you wasted your night scavenging somewhere empty, you have to tell people. If you were out and saw someone from town contort and change into something that is no longer human, you have to say so. The group's survival depends on that information reaching everyone.</p>
+      <p style="margin-top: 0.8rem;">But none of it is verified. The Amalgam sit in the same circle, listening and responding. When a player warns the group to stay away from someone they claim to have seen transform, they could be telling the truth — giving the survivors a genuine lead. Or they could be steering attention toward an innocent person, buying themselves another night. There is no way to know except to weigh the player against everything else you've seen from them. That judgment call, made out loud, in front of everyone, is the game.</p>
+    </div>
   </div>
 </div>
 
@@ -844,67 +849,6 @@ footer p {
       
     </div>
 
-    <div class="code-section">
-      <div class="code-section-label">From the codebase</div>
-      <div class="code-grid">
-
-        <div class="code-snippet">
-          <div class="code-snippet-header">
-            <span class="code-snippet-title">The State Package</span>
-            <span class="code-snippet-file">NightSnapshot.cs</span>
-          </div>
-          <pre>public struct NightSnapshot : INetworkSerializable
-{
-    // Global
-    public WorldFlags worldFlags;
-    // radio tower status, which NPCs are Amalgam
-
-    public BaseState baseState;
-    // morale, noise, fortification
-
-    public InventoryState inventory;
-    // shared resources
-
-    public RoundGains roundGains;
-    // what was found this round
-
-    // Per-player: role, hp, items, scavenging
-    public List&lt;PlayerInfo&gt; players;
-}</pre>
-        </div>
-
-        <div class="code-snippet">
-          <div class="code-snippet-header">
-            <span class="code-snippet-title">Client Result Accumulation</span>
-            <span class="code-snippet-file">ClientGameManager.cs</span>
-          </div>
-          <pre>// During scavenging, outcomes build up locally
-// on the client as each choice is made:
-public void AddPendingFood(int amount)
-    => PendingScavengeResults.foodChange += amount;
-
-public void AddPendingHpChange(int amount)
-    => PendingScavengeResults.hpChange += amount;
-
-public void MarkRifleFound()
-    => PendingScavengeResults.foundRifle = true;
-
-public void MarkGeneratorFixed()
-    => PendingScavengeResults.fixedGenerator = true;
-
-public void MarkAntennaFixed()
-    => PendingScavengeResults.fixedAntenna = true;
-
-// At the end, one RPC sends everything at once:
-NetworkGameManager.Instance
-    .ReportScavengeOutcomeServerRpc(
-        myUgsId,
-        PendingScavengeResults
-    );</pre>
-        </div>
-
-      </div>
-    </div>
   </div>
 </div>
 
