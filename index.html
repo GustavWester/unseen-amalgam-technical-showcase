@@ -660,6 +660,14 @@ footer p {
   letter-spacing: 1px;
 }
 
+/* SECTION BANDS */
+.section-band {
+  width: 100%;
+}
+.section-band.band-alt {
+  background: #121218;
+}
+
 /* FADE */
 .fade-in {
   opacity: 0;
@@ -787,13 +795,15 @@ footer p {
     <div class="card" style="grid-column: 1 / -1;">
       <h3>Word of Mouth</h3>
       <p>Everything players learn at night, they must share out loud. There is no shared log, no kill feed, no notification that a location has already been stripped bare. If you wasted your night scavenging somewhere empty, you have to tell people. If you were out and saw someone from town contort and change into something that is no longer human, you have to say so. The group's survival depends on that information reaching everyone.</p>
-      <p style="margin-top: 0.8rem;">But none of it is verified. The Amalgam sit in the same circle, listening and responding. When a player warns the group to stay away from someone they claim to have seen transform, they could be telling the truth — giving the survivors a genuine lead. Or they could be steering attention toward an innocent person, buying themselves another night. There is no way to know except to weigh the player against everything else you've seen from them. That judgment call, made out loud, in front of everyone, is the game.</p>
+      <p style="margin-top: 0.8rem;">The game tracks all of this — which locations have been looted, where every corpse is lying, who is still alive in the world outside the bunker. But players only know what they've personally seen. If someone claims they found the baker dead at the barn on night one, and then the baker turns up at the door on night two, the game knows that doesn't add up. The players have to figure it out.</p>
+      <p style="margin-top: 0.8rem;">None of it is verified. The Amalgam sit in the same circle, listening and responding. When a player warns the group to stay away from someone they claim to have seen transform, they could be telling the truth — or steering attention toward an innocent person, buying themselves another night. There is no way to know except to weigh the player against everything else you've seen from them. That judgment call, made out loud, in front of everyone, is the game.</p>
     </div>
   </div>
 </div>
 
 
 
+<div class="section-band band-alt">
 <div class="section" id="architecture">
   <div class="fade-in">
     <div class="section-label">Technical</div>
@@ -846,10 +856,23 @@ footer p {
         Once all clients have submitted, the host advances the phase and sends out new snapshots. Clients don't know about each other's actions until the host surfaces them, like announcing that someone died during the night.
       </p>
 
-      
+      <h4>NPC State Tracking</h4>
+      <p>
+        The NightSnapshot tracks every named NPC in the world — the baker, the stranger at the door, the farmer by the road — each with a status field marking them human or Amalgam, and a corpse location if they've been killed. If a player reports finding a body at the barn on night one, that's logged in the game state. If the same NPC then appears at the door the following day, something doesn't add up — and the players have to work that out for themselves.
+      </p>
+
+      <h4>Node Tracking</h4>
+      <p>
+        Every lootable location in the game — the police station armory, the pharmacy back room, the abandoned farmhouse — is registered as a node and stored in a <code style="font-family:monospace;font-size:0.85em;color:var(--cyan)">HashSet</code> on the host. Once a player has looted a node, it's flagged as cleared. Any player who goes there afterwards finds nothing. The game doesn't warn them in advance. They have to arrive and find out for themselves.
+      </p>
+      <p>
+        Players who share where they've already been save others from wasted trips — but only if they're willing to be honest about it. Staying quiet about a location you've cleared, or pointing a teammate toward somewhere already empty, costs them their entire night without lifting a hand.
+      </p>
+
     </div>
 
   </div>
+</div>
 </div>
 
 <!--
@@ -1378,6 +1401,7 @@ footer p {
   </div>
 </div>
 
+<div class="section-band band-alt">
 <div class="section" id="characters">
   <div class="fade-in">
     <div class="section-label">Roles</div>
@@ -1431,8 +1455,7 @@ footer p {
     </div>
   </div>
 </div>
-
-
+</div>
 
 
 
