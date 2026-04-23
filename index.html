@@ -794,9 +794,9 @@ footer p {
     </div>
     <div class="card" style="grid-column: 1 / -1;">
       <h3>Word of Mouth</h3>
-      <p>Everything players learn at night, they must share out loud. There is no shared log, no kill feed, no notification that a location has already been stripped bare. If you wasted your night scavenging somewhere empty, you have to tell people. If you spotted a corpse in the road or watched someone from town turn into something that is no longer human, you have to say so. The group's survival depends on that information reaching everyone.</p>
-      <p style="margin-top: 0.8rem;">The game keeps track of all of this. Which locations have been looted, where every corpse is lying, who is still alive in the world outside the bunker. But players only know what they have personally seen. If one player claims to have inspected the baker's corpse at the barn outside town, and then another player suddenly meets the baker alive the next night, that baker might not be what they claim to be.</p>
-      <p style="margin-top: 0.8rem;">None of it is verified. The Amalgam sit in the same circle, listening and responding. When a player warns the group to stay away from someone they claim to have seen transform, they could be telling the truth. Or they could be steering attention toward an innocent person, buying themselves another night. There is no way to know except to weigh the player against everything else you have seen from them. That judgment call, made out loud in front of everyone, is the game.</p>
+      <p>Everything players learn at night, they must share out loud. There is no shared log, no kill feed, no notification that a location has already been stripped bare. If you wasted your night scavenging somewhere empty, you have to tell people. If you found a corpse in the road, you have to say so. The group's survival depends on that information reaching everyone.</p>
+      <p style="margin-top: 0.8rem;">The game keeps track of all of it. Which locations have been looted, every NPC and their status, and where their corpse is if they have been killed. Players only know what they have personally seen and what others tell them. This is what makes the world state matter. If a player tells the group they found the baker's corpse at the barn, and the baker then shows up at the door the next day, one of two things is true. Either that player was lying. Or the baker standing in the doorway is not the baker. The real one is dead at the barn. The game keeps the world consistent so that kind of deduction is always possible.</p>
+      <p style="margin-top: 0.8rem;">None of it is verified. The Amalgam sit in the same circle, listening and responding. A player could lie about a corpse to frame someone. They could stay quiet about a location they already looted to waste a teammate's night. They could warn the group about someone they claim to have seen transform. There is no way to know except to weigh what they are saying against everything else you have seen from them. That judgment call, made out loud in front of everyone, is the game.</p>
     </div>
   </div>
 </div>
@@ -858,7 +858,7 @@ footer p {
 
       <h4>NPC State Tracking</h4>
       <p>
-        The NightSnapshot tracks every named NPC in the world. The baker, the stranger at the door, the farmer by the road. Each has a status field marking them human or Amalgam, and a corpse location if they have been killed. If a player reports finding a body at the barn on night one, that is logged in the game state. If the same NPC then appears at the door the following day, something does not add up. The players have to work that out for themselves.
+        The NightSnapshot tracks every named NPC in the world. Each has a status field marking them human or Amalgam, and a corpse location if they have been killed. This persistent state is what makes a specific type of deduction possible. If a player finds a corpse and reports to the group that it is the baker, that claim is either true or false. If it is true, and the baker then shows up the next day, the game state makes it unambiguous: the real baker is dead. Whatever is standing in front of the group is an Amalgam wearing their identity. The world stays consistent so that reasoning holds up.
       </p>
 
       <h4>Node Tracking</h4>
