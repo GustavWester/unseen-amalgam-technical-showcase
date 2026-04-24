@@ -712,10 +712,9 @@ footer p {
   <ul>
     <li><a href="#about">About</a></li>
     <li><a href="#architecture">Architecture</a></li>
-  
     <li><a href="#gameplay">Gameplay</a></li>
     <li><a href="#characters">Roles</a></li>
-   
+    <li><a href="#reflections">Reflections</a></li>
   </ul>
 </nav>
 
@@ -753,7 +752,7 @@ footer p {
     <div class="about-layout">
       <div>
         <p class="section-text">
-          The purpose of this page is to show the design of my game and some of the technical design decisions that have been made and implemented, particularly my networking communication design and my adaptive encounter design. 
+          The players are sheltering together in a house while the town around them has been overrun. Something outside is shapeshifting, taking the form of people they know. One of those things has already gotten inside the house with them. Every night, players go out alone to scavenge for food and supplies. Every morning, they come back and try to figure out which one of them is no longer human.
         </p>
         <p class="section-text" style="margin-top: 1.2rem;">
           This is a technical showcase of Unseen: Amalgam, a side project I've been building alongside my software engineering studies for the last 1.5 years. It's an online social deduction game inspired by Werewolf, Among Us, and Town of Salem, made in Unity. Currently a fully functional prototype with working multiplayer, a native mobile app for hosting and joining sessions, and a WebGL build for clients.
@@ -1457,6 +1456,30 @@ footer p {
 </div>
 </div>
 
+
+<div class="section" id="reflections">
+  <div class="fade-in">
+    <div class="section-label">Process</div>
+    <h2>What I took away from this</h2>
+    <div style="max-width: 720px;">
+      <p class="section-text">
+        This started as a way to make Werewolf work on phones. That was the whole idea. The social part was always the point, and the technology was supposed to just hold it together.
+      </p>
+      <p class="section-text" style="margin-top: 1.4rem;">
+        What I did not expect was how much having a persistent world would change the design. Physical Werewolf resets completely between rounds, nothing carries over. Making the world state permanent was not something I planned as a feature — it followed naturally from the architecture — but it ended up reshaping what the game actually was. The deduction mechanics around NPC corpses and looted locations only exist because the game remembers what happened. That emerged from the implementation, not from a design document.
+      </p>
+      <p class="section-text" style="margin-top: 1.4rem;">
+        Playtesting broke assumptions fast. I thought players would naturally share information from their night scavenges. They did not. They forgot about things, hoarded information, or just did not think it mattered. The first few sessions made it clear that communication was not a given — it was the problem the game needed to be built around. That shift changed the encounter design, changed what the game surfaces and when, and eventually became the design pillar the whole thing sits on.
+      </p>
+      <p class="section-text" style="margin-top: 1.4rem;">
+        Getting the multiplayer right took longer than the game design itself. The snapshot model — deciding what each player should and should not see — forced me to understand the game design properly first. I could not separate the network architecture from the design decisions. They were the same problem.
+      </p>
+      <p class="section-text" style="margin-top: 1.4rem;">
+        Balancing roles and encounters is still ongoing. Something that felt right with six players fell apart with ten. A role that seemed balanced on paper felt broken after two real sessions. Iterating on that with a small playtest group, and accepting that balance is never actually finished, was probably the most practically useful thing this project taught me.
+      </p>
+    </div>
+  </div>
+</div>
 
 
 <footer>
